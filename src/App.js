@@ -17,7 +17,7 @@ function App() {
           <Nav />
           <main className="caja-contenido col-9">
             <Routes>
-              <Route exact path="/" component={Clients} />
+              <Route exact path="/" element={<Clients />} />
             </Routes>
           </main>
         </div>
