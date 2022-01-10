@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/layouts/Header";
 import Nav from "./components/layouts/Nav";
 import Clients from "./components/clients/Clients";
+import Products from "./components/products/Products";
+import Orders from "./components/orders/Orders";
 
 function App() {
   return (
@@ -17,12 +19,14 @@ function App() {
           <Nav />
           <main className="caja-contenido col-9">
             <Routes>
-              <Route exact path="/" component={Clients} />
+              <Route exact path="/" element={<Clients />} />
+              <Route exact path="/products" element={<Products />} />
+              <Route exact path="/orders" element={<Orders />} />
             </Routes>
           </main>
         </div>
 
-        <h1> This is app</h1>
+        <h1> This is app component</h1>
       </>
     </Router>
   );
