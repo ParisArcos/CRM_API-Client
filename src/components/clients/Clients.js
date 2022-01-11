@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import clientAxios from "../../config/axios"
+import Client from "./Client";
+
 
 
 const Clients = () => {
@@ -22,9 +24,9 @@ const Clients = () => {
   return (
     <div>
       <h2>This is Clients component</h2>
-      <ul>
+      <ul className="listado-clientes">
         {clients.map(client => {
-          return console.log(client)
+          return <Client key={client._id} client={client} />
         })}
       </ul>
     </div>
