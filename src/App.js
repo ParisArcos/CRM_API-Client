@@ -1,5 +1,5 @@
 import React from "react";
-
+// import styles from "./App.module.css"
 //!Routing
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -16,7 +16,7 @@ function App() {
     <Router>
       <>
         <Header />
-        <div className="grid contenedor contenido-principal">
+        <div className="">
           <Nav />
           <main className="caja-contenido col-9">
             <Routes>
