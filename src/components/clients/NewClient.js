@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import clientAxios from "../../config/axios";
 
-const NewClient = () => {
+const NewClient = ({ history }) => {
   /**
+   *  This function sets initial state
    *  newClient = state  setNewClient = setState
    */
   const [newClient, setNewClient] = useState({
@@ -12,7 +16,9 @@ const NewClient = () => {
     phoneNumber: "",
   });
 
-  // handleChange
+  /**
+   *  This function handle input change
+   */
   const handleChange = (e) => {
     setNewClient({
       //* actual state
@@ -21,6 +27,27 @@ const NewClient = () => {
     });
   };
 
+  /**
+   *  This function handle form submit
+   */
+
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    clientAxios.post("/clients", newClient).then((res) => {
+      if (res.data.code === 11000) {
+        Swal.fire("Something went wrong!", "Error in Database", "error");
+      } else {
+        Swal.fire("New client Added!", res.data.message, "success");
+      }
+      navigate("/");
+    });
+  };
+
+  /**
+   *  This function validate that any input is empty
+   */
   const validateForm = () => {
     const { name, lastName, company, email, phoneNumber } = newClient;
     //todo improve function
@@ -37,7 +64,7 @@ const NewClient = () => {
   return (
     <div>
       <h2>Add New Client</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="campo">
           <label>Name:</label>
           <input
