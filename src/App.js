@@ -7,7 +7,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/layouts/Header";
 import Nav from "./components/layouts/Nav";
 import Clients from "./components/clients/Clients";
-import NewClient from "./components/clients/NewClient"
+import NewClient from "./components/clients/NewClient";
+import EditClient from "./components/clients/EditClient";
 import Products from "./components/products/Products";
 import Orders from "./components/orders/Orders";
 
@@ -22,6 +23,11 @@ function App() {
             <Routes>
               <Route exact path="/" element={<Clients />} />
               <Route exact path="/clients/new" element={<NewClient />} />
+              <Route
+                exact
+                path="clients/edit/:clientId"
+                element={<EditClient />}
+              />
               <Route exact path="/products" element={<Products />} />
               <Route exact path="/orders" element={<Orders />} />
             </Routes>
