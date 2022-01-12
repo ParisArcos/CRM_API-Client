@@ -5,21 +5,21 @@ const Client = ({ client }) => {
   const { name, lastName, email, company, phoneNumber } = client
   return (
 
-    <li className="cliente">
-      <div className="info-cliente">
-        <p className="nombre">{name}</p>
-        <p className="empresa">{company}</p>
+    <li className="client">
+      <div className="info-client">
+        <p className="name">{name}</p>
+        <p className="company">{company}</p>
         <p>{email}</p>
         <p>{phoneNumber}</p>
       </div>
-      <div className="acciones">
-        <a href="#" className="btn btn-azul">
+      <div className="actions">
+        <a href="#" className="btn btn-blue">
           <i className="fas fa-pen-alt"></i>
-          Editar Cliente
+          Edit client
         </a>
-        <button type="button" className="btn btn-rojo btn-eliminar">
+        <button type="button" className="btn btn-red btn-delete">
           <i className="fas fa-times"></i>
-          Eliminar Cliente
+          delete client
         </button>
       </div>
     </li>

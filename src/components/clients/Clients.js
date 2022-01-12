@@ -29,7 +29,7 @@ const Clients = () => {
 
       <Link to="/clients/new">Add New Client</Link>
 
-      <ul className="listado-clientes">
+      <ul className="list-clients">
         {clients.map(client => {
           return <Client key={client._id} client={client} />
         })}

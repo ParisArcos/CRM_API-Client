@@ -9,17 +9,17 @@ const Nav = () => {
         <ul>
           <li>
             {" "}
-            <Link to={"/"} className="clientes">
+            <Link to={"/"} className="clients">
               Clients
             </Link>
           </li>
           <li>
-            <Link to={"/products"} className="productos">
+            <Link to={"/products"} className="products">
               Products
             </Link>
           </li>
           <li>
-            <Link to={"/orders"} className="pedidos">
+            <Link to={"/orders"} className="orders">
               Orders
             </Link>
           </li>

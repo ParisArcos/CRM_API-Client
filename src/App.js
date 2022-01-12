@@ -18,7 +18,7 @@ function App() {
         <Header />
         <div className="">
           <Nav />
-          <main className="caja-contenido col-9">
+          <main className="box-content col-9">
             <Routes>
               <Route exact path="/" element={<Clients />} />
               <Route exact path="/clients/new" element={<NewClient />} />

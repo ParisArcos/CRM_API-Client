@@ -24,31 +24,31 @@ const NewClient = () => {
 
         <div className="campo">
           <label>Name:</label>
-          <input type="text" placeholder="Name Cliente" name={name} />
+          <input type="text" placeholder="Name client" name={name} />
         </div>
 
         <div className="campo">
           <label>Last Name:</label>
-          <input type="text" placeholder="Apellido Cliente" name={lastName} />
+          <input type="text" placeholder="Apellido client" name={lastName} />
         </div>
 
         <div className="campo">
           <label>Company:</label>
-          <input type="text" placeholder="Empresa Cliente" name={company} />
+          <input type="text" placeholder="company client" name={company} />
         </div>
 
         <div className="campo">
           <label>Email:</label>
-          <input type="email" placeholder="Email Cliente" name={email} />
+          <input type="email" placeholder="Email client" name={email} />
         </div>
 
         <div className="campo">
           <label>Phone Number:</label>
-          <input type="text" placeholder="Teléfono Cliente" name={phoneNumber} />
+          <input type="text" placeholder="Teléfono client" name={phoneNumber} />
         </div>
 
         <div className="enviar">
-          <input type="submit" className="btn btn-azul" value="Add Client" />
+          <input type="submit" className="btn btn-blue" value="Add Client" />
         </div>
 
       </form>
