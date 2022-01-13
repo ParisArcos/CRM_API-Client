@@ -42,6 +42,12 @@ const Client = ({ client }) => {
           <i className="fas fa-pen-alt"></i>
           Editar Cliente
         </Link>
+
+        <Link to={`orders/new/${_id}`} className="btn btn-amarillo">
+          <i className="fas fa-pen-alt"></i>
+          New Order
+        </Link>
+
         <button
           type="button"
           className="btn btn-rojo btn-eliminar"
