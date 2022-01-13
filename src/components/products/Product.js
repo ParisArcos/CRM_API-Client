@@ -29,28 +29,28 @@ const Product = ({ product }) => {
   const { _id, name, description, price, image } = product;
   return (
     <div>
-      <li className="producto">
-        <div className="info-producto">
+      <li className="product">
+        <div className="info-product">
           <p className="name">{name}</p>
           <p className="descripcion">{description}</p>
-          <p className="precio">{price} </p>
+          <p className="price">{price} </p>
           {image ? (
             <img src={`http://localhost:4000/${image}`} alt="product" />
           ) : null}
         </div>
         <div className="actions">
           <Link to={`/products/edit/${_id}`} className="btn btn-blue">
-            <i className="fas fa-pen-alt"></i>
-            Editar Producto
+            <i className="fas fa-edit"></i>
+            Editar product
           </Link>
 
           <button
             type="button"
-            className="btn btn-red btn-eliminar"
+            className="btn btn-red btn-delete"
             onClick={() => deleteProduct(_id)}
           >
             <i className="fas fa-times"></i>
-            Eliminar Producto
+            Delete product
           </button>
         </div>
       </li>

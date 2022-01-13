@@ -3,8 +3,8 @@
   --fontHeading: 'Staatliches', cursive;
 
   /** Colores **/
-  --blue: #00487C;
-  --red: #A01C48;
+  --blue: #000000;
+  --red: #ff0000;
   --orange: #F58549;
   --yellow: #ECA400;
   --green: rgb(20, 131, 20);
@@ -50,7 +50,7 @@ h2 {
   font-size: 3rem;
 }
 
-.contenedor {
+.container {
   max-width: 1400px;
   margin: 0 auto;
   width: 95%;
@@ -71,7 +71,7 @@ h2 {
   text-transform: uppercase;
   display: block;
   font-family: var(--fontTexto);
-  border: none;
+  border-radius: 10px;
   flex: 0 0 100%;
   width: 100%;
 }
@@ -210,19 +210,18 @@ h2 {
 .nav a.clients::before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
-  content: "\f0c0";
 }
 
 .nav a.products::before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
-  content: "\f468";
+
 }
 
 .nav a.orders::before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
-  content: "\f02d";
+
 }
 
 /** box **/
@@ -527,4 +526,7 @@ h3.resume-title {
   text-align: center;
 }
 
-.login .contenedor-formulario {}
+
+i {
+  margin-right: 5px;
+}

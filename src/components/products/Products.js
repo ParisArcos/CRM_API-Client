@@ -20,11 +20,11 @@ const Products = () => {
 
   return (
     <div>
-      <h2>This is Products component</h2>
+      <h2>Products List</h2>
 
-      <Link to="/Products/new">Add New Product</Link>
+      <Link className="btn btn-green" to="/Products/new">Add New Product</Link>
 
-      <ul className="listado-productos">
+      <ul className="listado-products">
         {products.map((product) => {
           return <Product key={product._id} product={product} />;
         })}

@@ -19,9 +19,9 @@ const Clients = () => {
 
   return (
     <div>
-      <h2>This is Clients component</h2>
+      <h2>Clients List</h2>
 
-      <Link to="/clients/new">Add New Client</Link>
+      <Link className="btn btn-green" to="/clients/new">Add New Client</Link>
 
       <ul className="list-clients">
         {clients.map(client => {

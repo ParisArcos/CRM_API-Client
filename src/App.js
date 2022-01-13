@@ -24,7 +24,7 @@ function App() {
     <Router>
       <>
         <Header />
-        <div className="container">
+        <div className="container d-flex">
           <Nav className="list-clients" />
           <main className="box-content col-9">
             <Routes>
@@ -62,7 +62,6 @@ function App() {
           </main>
         </div>
 
-        <h1> This is app component</h1>
       </>
     </Router>
   );
