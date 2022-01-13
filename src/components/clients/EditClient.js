@@ -31,8 +31,7 @@ const EditClient = () => {
    */
   const getIdFromURL = () => {
     const pathSplit = pathname.split("/");
-    const id = pathSplit[pathSplit.length - 1];
-    return id;
+    return pathSplit[pathSplit.length - 1];
   };
 
   /**

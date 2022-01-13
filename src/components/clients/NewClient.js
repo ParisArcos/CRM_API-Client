@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import clientAxios from "../../config/axios";
 
-const NewClient = ({ history }) => {
+const NewClient = ({}) => {
   /**
    *  This function sets initial state
    *  newClient = state  setNewClient = setState
@@ -30,7 +30,6 @@ const NewClient = ({ history }) => {
   /**
    *  This function handle form submit
    */
-
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();

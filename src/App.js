@@ -6,10 +6,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 //! Layout
 import Header from "./components/layouts/Header";
 import Nav from "./components/layouts/Nav";
+
 import Clients from "./components/clients/Clients";
 import NewClient from "./components/clients/NewClient";
 import EditClient from "./components/clients/EditClient";
+
 import Products from "./components/products/Products";
+import NewProduct from "./components/products/NewProduct";
+import EditProduct from "./components/products/EditProduct";
+
 import Orders from "./components/orders/Orders";
 
 function App() {
@@ -28,7 +33,15 @@ function App() {
                 path="clients/edit/:clientId"
                 element={<EditClient />}
               />
+
               <Route exact path="/products" element={<Products />} />
+              <Route exact path="/products/new" element={<NewProduct />} />
+              <Route
+                exact
+                path="/products/edit/:productId"
+                element={<EditProduct />}
+              />
+
               <Route exact path="/orders" element={<Orders />} />
             </Routes>
           </main>
