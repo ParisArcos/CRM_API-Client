@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import clientAxios from "../../config/axios";
 
 const EditClient = () => {
-
-  function getIdFromUrl() {
-    const pathSplit = pathname.split("/");
-    const id = pathSplit[pathSplit.length - 1];
-    return id
-  }
-
   /**
- *  This function sets initial state
- *  newClient = state  setNewClient = setState
- */
+   *  This function sets initial state
+   *  editClient = state  setEditClient = setState
+   */
   const [editClient, setEditClient] = useState({
     name: "",
     lastName: "",
@@ -24,22 +17,30 @@ const EditClient = () => {
   });
 
   /**
-   * API REQ
-   *  */
+   *  useEffect
+   */
+  useEffect(() => {
+    APIcall();
+  }, []);
 
   const { pathname } = useLocation();
-  const APIcall = async () => {
-    const clientReq = await clientAxios.get(`/clients/${getIdFromUrl()}`)
-
-    setEditClient(clientReq.data)
-  }
+  const navigate = useNavigate();
 
   /**
- * USE EFFECT
- *  */
-  useEffect(() => {
-    APIcall()
-  }, []);
+   *  This function takes the id from the  URL
+   */
+  const getIdFromURL = () => {
+    const pathSplit = pathname.split("/");
+    return pathSplit[pathSplit.length - 1];
+  };
+
+  /**
+   *  This function gets client from the api
+   */
+  const APIcall = async () => {
+    const clientReq = await clientAxios.get(`/clients/${getIdFromURL()}`);
+    setEditClient(clientReq.data);
+  };
 
   /**
    *  This function handle input change
@@ -55,21 +56,18 @@ const EditClient = () => {
   /**
    *  This function handle form submit
    */
-
-  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    clientAxios.put(`/clients/${getIdFromUrl()}`, editClient).then((res) => {
+    clientAxios.put(`/clients/${getIdFromURL()}`, editClient).then((res) => {
       if (res.data.code === 11000) {
         Swal.fire("Something went wrong!", "Error in Database", "error");
       } else {
-        Swal.fire("New client Added!", res.data.message, "success");
+        Swal.fire("Client edited", res.data.message, "success");
       }
       navigate("/");
     });
   };
-  const { name, lastName, company, email, phoneNumber } = editClient;
 
   /**
    *  This function validate that any input is empty
@@ -89,7 +87,7 @@ const EditClient = () => {
 
   return (
     <div>
-      <h2>Add New Client</h2>
+      <h2>Edit Client</h2>
       <form onSubmit={handleSubmit}>
         <div className="campo">
           <label>Name:</label>
@@ -97,7 +95,7 @@ const EditClient = () => {
             type="text"
             placeholder="Name client"
             name="name"
-            value={name}
+            value={editClient.name}
             onChange={handleChange}
           />
         </div>
@@ -108,7 +106,7 @@ const EditClient = () => {
             type="text"
             placeholder="Apellido client"
             name="lastName"
-            value={lastName}
+            value={editClient.lastName}
             onChange={handleChange}
           />
         </div>
@@ -119,8 +117,7 @@ const EditClient = () => {
             type="text"
             placeholder="company client"
             name="company"
-
-            value={company}
+            value={editClient.company}
             onChange={handleChange}
           />
         </div>
@@ -131,7 +128,7 @@ const EditClient = () => {
             type="email"
             placeholder="Email client"
             name="email"
-            value={email}
+            value={editClient.email}
             onChange={handleChange}
           />
         </div>
@@ -142,7 +139,7 @@ const EditClient = () => {
             type="text"
             placeholder="Teléfono client"
             name="phoneNumber"
-            value={phoneNumber}
+            value={editClient.phoneNumber}
             onChange={handleChange}
           />
         </div>
@@ -158,6 +155,6 @@ const EditClient = () => {
       </form>
     </div>
   );
-}
+};
 
-export default EditClient
+export default EditClient;

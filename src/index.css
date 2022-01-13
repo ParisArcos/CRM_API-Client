@@ -247,6 +247,7 @@ h2 {
 .list-clients,
 .list-products,
 .list-orders {
+
   list-style: none;
   padding: 0;
 }
