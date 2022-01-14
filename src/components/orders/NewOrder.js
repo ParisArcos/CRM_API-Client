@@ -39,7 +39,8 @@ const NewOrder = () => {
    */
   useEffect(() => {
     APIcall();
-  });
+  }, []);
+
 
   /**
    *  This function gets client from the api
@@ -59,7 +60,7 @@ const NewOrder = () => {
     <>
       <h2>Nuevo Pedido</h2>
 
-      <div className="ficha-cliente">
+      <div className="card-client">
         <h3>Datos de Cliente</h3>
         <p>
           {orderClient.name} {orderClient.lastName}
@@ -74,80 +75,49 @@ const NewOrder = () => {
         handleChangeProduct={handleChangeProduct}
       />
       <form>
-        <div className="campo">
+        <div className="field">
           <label>Products:</label>
           <input type="text" placeholder="Product Name" name="products" />
         </div>
 
-        <ul className="resumen">
+        <ul className="summary">
           <li>
-            <div className="texto-producto">
+            <div className="text-product">
               <p className="name">Macbook Pro</p>
-              <p className="description">Macbook Pro</p>
+              <p className="description">Ordenata to pasao de rosca</p>
               <p className="price">$250</p>
             </div>
-            <div className="acciones">
-              <div className="contenedor-cantidad">
+            <div className="actions">
+              <div className="container-units">
                 <i className="fas fa-minus"></i>
                 <input type="text" name="cantidad" />
                 <i className="fas fa-plus"></i>
               </div>
-              <button type="button" className="btn btn-rojo">
-                <i className="fas fa-minus-circle"></i>
-                Eliminar Producto
-              </button>
+
             </div>
           </li>
-          <li>
-            <div className="texto-producto">
-              <p className="nombre">Macbook Pro</p>
-              <p className="precio">$250</p>
-            </div>
-            <div className="acciones">
-              <div className="contenedor-cantidad">
-                <i className="fas fa-minus"></i>
-                <input type="text" name="cantidad" />
-                <i className="fas fa-plus"></i>
-              </div>
-              <button type="button" className="btn btn-rojo">
-                <i className="fas fa-minus-circle"></i>
-                Eliminar Producto
-              </button>
-            </div>
-          </li>
-          <li>
-            <div className="texto-producto">
-              <p className="nombre">Macbook Pro</p>
-              <p className="precio">$250</p>
-            </div>
-            <div className="acciones">
-              <div className="contenedor-cantidad">
-                <i className="fas fa-minus"></i>
-                <input type="text" name="cantidad" />
-                <i className="fas fa-plus"></i>
-              </div>
-              <button type="button" className="btn btn-rojo">
-                <i className="fas fa-minus-circle"></i>
-                Eliminar Producto
-              </button>
-            </div>
-          </li>
+
+
         </ul>
-        <div className="campo">
+        <div className="field">
           <label>Total:</label>
           <input
             type="number"
-            name="precio"
-            placeholder="Precio"
-            readonly="readonly"
+            name="price"
+            placeholder="price"
+            readOnly="readonly"
           />
         </div>
-        <div className="enviar">
+        <div className="sen">
           <input
             type="submit"
-            className="btn btn-azul"
+            className="btn btn-blue"
             value="Agregar Pedido"
           />
+          <button type="button" className="btn btn-red">
+            <i className="fas fa-minus-circle"></i>
+            Delete product
+          </button>
         </div>
       </form>
     </>

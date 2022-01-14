@@ -41,7 +41,7 @@ const Product = ({ product }) => {
         <div className="actions">
           <Link to={`/products/edit/${_id}`} className="btn btn-blue">
             <i className="fas fa-edit"></i>
-            Editar product
+            Edit product
           </Link>
 
           <button

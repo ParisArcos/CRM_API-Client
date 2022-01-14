@@ -44,7 +44,7 @@ const Client = ({ client }) => {
         </Link>
 
         <Link to={`orders/new/${_id}`} className="btn btn-yellow">
-          <i className="fas fa-edit"></i>
+          <i className="fas fa-plus"></i>
           New Order
         </Link>
 

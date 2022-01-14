@@ -16,13 +16,13 @@ const Products = () => {
 
   useEffect(() => {
     APIcall();
-  }, [products]);
+  }, []);
 
   return (
     <div>
       <h2>Products List</h2>
 
-      <Link className="btn btn-green" to="/Products/new">Add New Product</Link>
+      <Link className="btn btn-green" to="/Products/new"><i className="fas fa-plus"></i>Add New Product</Link>
 
       <ul className="listado-products">
         {products.map((product) => {

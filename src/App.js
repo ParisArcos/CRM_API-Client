@@ -52,7 +52,7 @@ function App() {
                 //? orders
               }
               <Route exact path="/orders" element={<Orders />} />
-              <Route exact path="/orders/new" element={<NewOrder />} />
+              <Route exact path="/orders/new/:ordersId" element={<NewOrder />} />
               <Route
                 exact
                 path="/orders/edit/:ordersId"

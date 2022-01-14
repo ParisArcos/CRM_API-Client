@@ -15,13 +15,13 @@ const Clients = () => {
 
   useEffect(() => {
     APIcall();
-  }, [clients]);
+  }, []);
 
   return (
     <div>
       <h2>Clients List</h2>
 
-      <Link className="btn btn-green" to="/clients/new">Add New Client</Link>
+      <Link className="btn btn-green" to="/clients/new"><i className="fas fa-plus"></i>Add New Client</Link>
 
       <ul className="list-clients">
         {clients.map(client => {

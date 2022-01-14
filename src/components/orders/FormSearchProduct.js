@@ -13,7 +13,10 @@ const FormSearchProduct = ({ searchProducts, handleChangeProduct }) => {
         />
       </div>
       <div className="enviar">
-        <input type="submit" className="btn btn-azul" value="Agregar Pedido" />
+
+        <button type="submit" className="btn btn-blue" value="Search Order" >
+          <i className="fas fa-search"></i>
+          Search Order</button>
       </div>
     </form>
   );
