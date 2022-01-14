@@ -20,6 +20,10 @@ const EditProduct = () => {
    */
   const [editFile, setEditFile] = useState("");
 
+  const APIcall = async () => {
+    const productReq = await clientAxios.get(`/products/${getIdFromURL()}`);
+    setEditProduct(productReq.data);
+  };
   /**
    *  useEffect
    */
@@ -38,16 +42,14 @@ const EditProduct = () => {
     return pathSplit[pathSplit.length - 1];
   };
 
-  const APIcall = async () => {
-    const productReq = await clientAxios.get(`/products/${getIdFromURL()}`);
-    setEditProduct(productReq.data);
-  };
+
 
   /**
    *  This function takes files
    */
   const getFile = (e) => {
     setEditFile(e.target.files[0]);
+    console.log(e.target.files[0])
   };
 
   /**
@@ -59,8 +61,8 @@ const EditProduct = () => {
       ...editProduct,
       [e.target.name]: e.target.value,
     });
-    console.log("handlechange");
-    console.log(editProduct);
+    // console.log("handlechange");
+    // console.log(editProduct);
   };
 
   /**
@@ -68,19 +70,22 @@ const EditProduct = () => {
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(editFile)
+
 
     const editFormData = new FormData();
     editFormData.append("name", editProduct.name);
     editFormData.append("description", editProduct.description);
     editFormData.append("price", editProduct.price);
-    editFormData.append("image", editFile);
+    editFormData.append("image", editProduct.image || editFile);
 
     try {
-      clientAxios
+
+      await clientAxios
         .put(`/products/${getIdFromURL()}`, editFormData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          // method: "PUT",
+          headers:
+            { 'content-type': 'application/x-www-form-urlencoded' }
         })
         .then((res) => {
           if (res.status === 200) {
@@ -100,7 +105,7 @@ const EditProduct = () => {
       <h2>Edit Product</h2>
 
       <form onSubmit={handleSubmit}>
-        <div className="campo">
+        <div className="field">
           <label>Name:</label>
           <input
             type="text"
@@ -111,7 +116,7 @@ const EditProduct = () => {
           />
         </div>
 
-        <div className="campo">
+        <div className="field">
           <label>Description:</label>
           <input
             type="text"
@@ -122,7 +127,7 @@ const EditProduct = () => {
           />
         </div>
 
-        <div className="campo">
+        <div className="field">
           <label>Price:</label>
           <input
             type="number"
@@ -135,7 +140,7 @@ const EditProduct = () => {
           />
         </div>
 
-        <div className="campo">
+        <div className="field">
           <label>Image:</label>
           {image ? (
             <img src={`http://localhost:4000/${image}`} alt="product" />

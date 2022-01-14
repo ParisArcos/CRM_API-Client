@@ -398,26 +398,26 @@ form legend {
   margin-bottom: 2rem;
 }
 
-form .campo {
+form .field {
   padding: .5rem 2rem;
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
 }
 
-form .campo label {
+form .field label {
   font-weight: bold;
   font-family: var(--fontTexto);
   flex: 0 0 100px;
 }
 
-form .campo input:not([type="submit"]) {
+form .field input:not([type="submit"]) {
   padding: 1.5rem;
   flex: 1;
   border: 1px solid #e1e1e1;
 }
 
-form .campo input[readonly] {
+form .field input[readonly] {
   background-color: #e1e1e1;
 }
 

@@ -48,7 +48,7 @@ const NewProduct = () => {
     formData.append("price", newProduct.price);
     formData.append("image", newFile);
     try {
-      clientAxios
+      await clientAxios
         .post("/products", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -57,6 +57,7 @@ const NewProduct = () => {
         .then((res) => {
           if (res.status === 200) {
             Swal.fire("New product Added!", res.data.message, "success");
+            console.log(res)
           }
           navigate("/products");
         });
@@ -70,7 +71,7 @@ const NewProduct = () => {
       <h2>New Product</h2>
 
       <form onSubmit={handleSubmit}>
-        <div className="campo">
+        <div className="field">
           <label>Name:</label>
           <input
             type="text"
@@ -80,7 +81,7 @@ const NewProduct = () => {
           />
         </div>
 
-        <div className="campo">
+        <div className="field">
           <label>Description:</label>
           <input
             type="text"
@@ -90,7 +91,7 @@ const NewProduct = () => {
           />
         </div>
 
-        <div className="campo">
+        <div className="field">
           <label>Price:</label>
           <input
             type="number"
@@ -102,7 +103,7 @@ const NewProduct = () => {
           />
         </div>
 
-        <div className="campo">
+        <div className="field">
           <label>Image:</label>
           <input type="file" name="image" onChange={getFile} />
         </div>

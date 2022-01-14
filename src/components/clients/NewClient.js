@@ -64,7 +64,7 @@ const NewClient = ({ }) => {
     <div>
       <h2>Add New Client</h2>
       <form onSubmit={handleSubmit}>
-        <div className="campo">
+        <div className="field">
           <label>Name:</label>
           <input
             type="text"
@@ -74,7 +74,7 @@ const NewClient = ({ }) => {
           />
         </div>
 
-        <div className="campo">
+        <div className="field">
           <label>Last Name:</label>
           <input
             type="text"
@@ -84,7 +84,7 @@ const NewClient = ({ }) => {
           />
         </div>
 
-        <div className="campo">
+        <div className="field">
           <label>Company:</label>
           <input
             type="text"
@@ -94,7 +94,7 @@ const NewClient = ({ }) => {
           />
         </div>
 
-        <div className="campo">
+        <div className="field">
           <label>Email:</label>
           <input
             type="email"
@@ -104,7 +104,7 @@ const NewClient = ({ }) => {
           />
         </div>
 
-        <div className="campo">
+        <div className="field">
           <label>Phone Number:</label>
           <input
             type="text"

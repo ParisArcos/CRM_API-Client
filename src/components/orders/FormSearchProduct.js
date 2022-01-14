@@ -3,7 +3,7 @@ import React from "react";
 const FormSearchProduct = ({ searchProducts, handleChangeProduct }) => {
   return (
     <form onSubmit={searchProducts}>
-      <div className="campo">
+      <div className="field">
         <label>Products:</label>
         <input
           type="text"
