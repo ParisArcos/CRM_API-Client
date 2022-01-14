@@ -75,10 +75,7 @@ const NewOrder = () => {
         handleChangeProduct={handleChangeProduct}
       />
       <form>
-        <div className="field">
-          <label>Products:</label>
-          <input type="text" placeholder="Product Name" name="products" />
-        </div>
+
 
         <ul className="summary">
           <li>
