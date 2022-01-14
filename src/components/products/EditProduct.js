@@ -77,7 +77,7 @@ const EditProduct = () => {
     editFormData.append("name", editProduct.name);
     editFormData.append("description", editProduct.description);
     editFormData.append("price", editProduct.price);
-    editFormData.append("image", editProduct.image || editFile);
+    editFormData.append("image", editFile || editProduct.image);
 
     try {
 
