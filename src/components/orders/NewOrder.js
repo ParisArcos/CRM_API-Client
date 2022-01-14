@@ -63,8 +63,8 @@ const NewOrder = () => {
       resProduct.product = resSearch.data[0]._id;
       resProduct.units = 0;
 
-      setFoundProducts(...foundProducts, resProduct);
-      console.log(foundProducts);
+      setFoundProducts([...foundProducts, resProduct]);
+      //TODO implements-> show more than one products
     } else {
       Swal.fire("Something went wrong!", "No results", "error");
     }
@@ -77,6 +77,19 @@ const NewOrder = () => {
     setProductSearch(e.target.value);
   };
 
+  const changeProductUnits = (symbol, index) => {
+    const allProducts = [...foundProducts];
+    if (symbol === "+") {
+      allProducts[index].units++;
+    } else {
+      if (allProducts[index].units !== 0) {
+        allProducts[index].units--;
+      } else {
+        return;
+      }
+    }
+    return setFoundProducts(allProducts);
+  };
   return (
     <>
       <h2>New Order</h2>
@@ -98,7 +111,12 @@ const NewOrder = () => {
       <form>
         <ul className="resume">
           {foundProducts.map((product, index) => (
-            <FoundProducts />
+            <FoundProducts
+              key={product.product}
+              product={product}
+              changeProductUnits={changeProductUnits}
+              index={index}
+            />
           ))}
         </ul>
         <div className="field">
