@@ -2,6 +2,8 @@ import React, { useState, useEffect, Fragment } from "react";
 import { useLocation } from "react-router-dom";
 import clientAxios from "../../config/axios";
 import FormSearchProduct from "./FormSearchProduct";
+import FoundProducts from "./FoundProducts";
+import Swal from "sweetalert2";
 
 const NewOrder = () => {
   /**
@@ -9,6 +11,12 @@ const NewOrder = () => {
    *  orderClient = state  setOrderClient = setState
    */
   const [orderClient, setOrderClient] = useState({});
+
+  /**
+   *  This function sets initial state
+   *  productSearch = state  setProductSearch = setState
+   */
+  const [foundProducts, setFoundProducts] = useState([]);
 
   /**
    *  This function sets initial state
@@ -41,12 +49,25 @@ const NewOrder = () => {
     APIcall();
   }, []);
 
-
   /**
    *  This function gets client from the api
    */
-  const searchProduct = async (e) => {
+  const searchProducts = async (e) => {
     e.preventDefault();
+    const resSearch = await clientAxios.post(
+      `/products/search/${productSearch}`
+    );
+
+    if (resSearch.data[0]) {
+      let resProduct = resSearch.data[0];
+      resProduct.product = resSearch.data[0]._id;
+      resProduct.units = 0;
+
+      setFoundProducts(...foundProducts, resProduct);
+      console.log(foundProducts);
+    } else {
+      Swal.fire("Something went wrong!", "No results", "error");
+    }
   };
 
   /**
@@ -58,43 +79,27 @@ const NewOrder = () => {
 
   return (
     <>
-      <h2>Nuevo Pedido</h2>
+      <h2>New Order</h2>
 
       <div className="card-client">
-        <h3>Datos de Cliente</h3>
+        <h3>Client Info</h3>
         <p>
-          {orderClient.name} {orderClient.lastName}
+          Name: {orderClient.name} {orderClient.lastName}
         </p>
         <p>
-          {orderClient.email} {orderClient.phoneNumber}
+          Contact: {orderClient.email} {orderClient.phoneNumber}
         </p>
       </div>
 
       <FormSearchProduct
-        searchProduct={searchProduct}
+        searchProducts={searchProducts}
         handleChangeProduct={handleChangeProduct}
       />
       <form>
-
-
-        <ul className="summary">
-          <li>
-            <div className="text-product">
-              <p className="name">Macbook Pro</p>
-              <p className="description">Ordenata to pasao de rosca</p>
-              <p className="price">$250</p>
-            </div>
-            <div className="actions">
-              <div className="container-units">
-                <i className="fas fa-minus"></i>
-                <input type="text" name="cantidad" />
-                <i className="fas fa-plus"></i>
-              </div>
-
-            </div>
-          </li>
-
-
+        <ul className="resume">
+          {foundProducts.map((product, index) => (
+            <FoundProducts />
+          ))}
         </ul>
         <div className="field">
           <label>Total:</label>
@@ -111,10 +116,6 @@ const NewOrder = () => {
             className="btn btn-blue"
             value="Agregar Pedido"
           />
-          <button type="button" className="btn btn-red">
-            <i className="fas fa-minus-circle"></i>
-            Delete product
-          </button>
         </div>
       </form>
     </>
