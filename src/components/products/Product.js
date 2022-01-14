@@ -33,7 +33,7 @@ const Product = ({ product }) => {
         <div className="info-product">
           <p className="name">{name}</p>
           <p className="descripcion">{description}</p>
-          <p className="price">{price} </p>
+          <p className="price">{price} €</p>
           {image ? (
             <img src={`http://localhost:4000/${image}`} alt="product" />
           ) : null}
