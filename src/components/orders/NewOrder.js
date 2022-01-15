@@ -8,21 +8,12 @@ import Swal from "sweetalert2";
 const NewOrder = () => {
   /**
    *  This function sets initial state
-   *  orderClient = state  setOrderClient = setState
+   *  state , setState
    */
   const [orderClient, setOrderClient] = useState({});
-
-  /**
-   *  This function sets initial state
-   *  productSearch = state  setProductSearch = setState
-   */
   const [foundProducts, setFoundProducts] = useState([]);
-
-  /**
-   *  This function sets initial state
-   *  productSearch = state  setProductSearch = setState
-   */
   const [productSearch, setProductSearch] = useState("");
+  const [total, setTotal] = useState("");
 
   const { pathname } = useLocation();
 
@@ -47,7 +38,8 @@ const NewOrder = () => {
    */
   useEffect(() => {
     APIcall();
-  }, []);
+    updateTotal();
+  }, [foundProducts]);
 
   /**
    *  This function gets client from the api
@@ -77,6 +69,19 @@ const NewOrder = () => {
     setProductSearch(e.target.value);
   };
 
+  /**
+   *  This function delete products from state
+   */
+  const deleteProductOrder = (id) => {
+    const allProducts = foundProducts.filter(
+      (product) => product.product !== id
+    );
+    setFoundProducts(allProducts);
+  };
+
+  /**
+   *
+   */
   const changeProductUnits = (symbol, index) => {
     const allProducts = [...foundProducts];
     if (symbol === "+") {
@@ -90,6 +95,17 @@ const NewOrder = () => {
     }
     return setFoundProducts(allProducts);
   };
+
+  const updateTotal = () => {
+    if (foundProducts.length === 0) {
+      setTotal(0);
+      return;
+    }
+    let newTotal = 0;
+    foundProducts.map((product) => (newTotal += product.units * product.price));
+    setTotal(newTotal);
+  };
+
   return (
     <>
       <h2>New Order</h2>
@@ -108,34 +124,34 @@ const NewOrder = () => {
         searchProducts={searchProducts}
         handleChangeProduct={handleChangeProduct}
       />
-      <form>
-        <ul className="resume">
-          {foundProducts.map((product, index) => (
-            <FoundProducts
-              key={product.product}
-              product={product}
-              changeProductUnits={changeProductUnits}
-              index={index}
-            />
-          ))}
-        </ul>
-        <div className="field">
-          <label>Total:</label>
-          <input
-            type="number"
-            name="price"
-            placeholder="price"
-            readOnly="readonly"
+      <ul className="resume">
+        {foundProducts.map((product, index) => (
+          <FoundProducts
+            key={product.product}
+            product={product}
+            changeProductUnits={changeProductUnits}
+            index={index}
+            deleteProductOrder={deleteProductOrder}
           />
-        </div>
-        <div className="sen">
+        ))}
+      </ul>
+      <div className="field">
+        <p className="total">
+          Total: <span>{total}€</span>
+        </p>
+      </div>
+      <div className="sen">
+        <input type="submit" className="btn btn-blue" value="Agregar Pedido" />
+      </div>
+      {total > 0 ? (
+        <form>
           <input
             type="submit"
-            className="btn btn-blue"
-            value="Agregar Pedido"
+            className="btn btn-green btn-block"
+            value="Complete Order"
           />
-        </div>
-      </form>
+        </form>
+      ) : null}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 
 const FoundProducts = (props) => {
-  const { product, changeProductUnits, index } = props;
+  const { product, changeProductUnits, index, deleteProductOrder } = props;
   return (
     <li>
       {product.image ? (
@@ -29,7 +29,11 @@ const FoundProducts = (props) => {
             onClick={() => changeProductUnits("+", index)}
           ></i>
         </div>
-        <button type="button" className="btn btn-red">
+        <button
+          type="button"
+          className="btn btn-red"
+          onClick={() => deleteProductOrder(product.product)}
+        >
           <i className="fas fa-minus-circle"></i>
           Delete product
         </button>
