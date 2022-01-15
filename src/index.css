@@ -1,12 +1,12 @@
 :root {
-  --fontTexto: 'Raleway', sans-serif;
-  --fontHeading: 'Raleway', sans-serif;
+  --fontTexto: "Raleway", sans-serif;
+  --fontHeading: "Raleway", sans-serif;
 
   /** Colores **/
   --blue: #000000;
   --red: #ff0000;
-  --orange: #F58549;
-  --yellow: #ECA400;
+  --orange: #f58549;
+  --yellow: #eca400;
   --green: rgb(20, 131, 20);
 
   /** gris **/
@@ -22,7 +22,6 @@ body {
 }
 
 html {
-
   box-sizing: border-box;
   font-size: 62.5%;
 }
@@ -53,7 +52,6 @@ h2 {
 
 label {
   color: #998e8e;
-
 }
 
 p {
@@ -123,7 +121,7 @@ p {
 }
 
 .btn:disabled {
-  opacity: .4;
+  opacity: 0.4;
 }
 
 .newClient {
@@ -169,7 +167,6 @@ p {
 
 .content-bar button {
   margin-top: 2rem;
-
 }
 
 @media (min-width: 768px) {
@@ -225,13 +222,11 @@ p {
 .nav a.products::before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
-
 }
 
 .nav a.orders::before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
-
 }
 
 /** box **/
@@ -250,14 +245,13 @@ p {
   -moz-box-shadow: 0px 7px 6px -5px rgba(0, 0, 0, 0.36);
   box-shadow: 0px 7px 6px -5px rgba(0, 0, 0, 0.36);
   border-radius: 1rem;
-  border: 1px solid grey
+  border: 1px solid grey;
 }
 
 /** Mostrar clients **/
 .list-clients,
 .list-products,
 .list-orders {
-
   list-style: none;
   padding: 0;
 }
@@ -276,8 +270,12 @@ p {
   border-bottom: 0;
 }
 
-@media (min-width: 768px) {
+.img-product {
+  width: 100px;
+  height: auto;
+}
 
+@media (min-width: 768px) {
   .client,
   .product,
   .order {
@@ -318,7 +316,6 @@ p {
 }
 
 @media (min-width: 768px) {
-
   .client .actions a:last-of-type,
   .product .actions a:last-of-type,
   .order .actions a:last-of-type {
@@ -345,7 +342,7 @@ p {
 .resume .price {
   font-weight: 700;
   font-size: 2rem;
-  color: rgb(162, 169, 177)
+  color: rgb(162, 169, 177);
 }
 
 .order .total {
@@ -399,7 +396,7 @@ form legend {
 }
 
 form .field {
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
@@ -422,7 +419,7 @@ form .field input[readonly] {
 }
 
 .enviar {
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   display: flex;
   justify-content: flex-end;
 }
@@ -537,7 +534,6 @@ h3.resume-title {
 .login h2 {
   text-align: center;
 }
-
 
 i {
   margin-right: 5px;

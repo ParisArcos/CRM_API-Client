@@ -2,21 +2,19 @@ import React, { useState, useEffect, Fragment } from "react";
 import { useLocation } from "react-router-dom";
 import clientAxios from "../../config/axios";
 import FormSearchProduct from "./FormSearchProduct";
+import FoundProducts from "./FoundProducts";
+import Swal from "sweetalert2";
 
 const NewOrder = () => {
   /**
    *  This function sets initial state
-   *  orderClient = state  setOrderClient = setState
+   *  state , setState
    */
   const [orderClient, setOrderClient] = useState({});
-
-  /**
-   *  This function sets initial state
-   *  productSearch = state  setProductSearch = setState
-   */
+  const [foundProducts, setFoundProducts] = useState([]);
   const [productSearch, setProductSearch] = useState("");
+  const [total, setTotal] = useState("");
 
-  const [total, setTotal] = useState(0)
 
   const { pathname } = useLocation();
 
@@ -41,15 +39,28 @@ const NewOrder = () => {
    */
   useEffect(() => {
     APIcall();
-    updateTotal()
+    updateTotal();
   }, [foundProducts]);
-
 
   /**
    *  This function gets client from the api
    */
-  const searchProduct = async (e) => {
+  const searchProducts = async (e) => {
     e.preventDefault();
+    const resSearch = await clientAxios.post(
+      `/products/search/${productSearch}`
+    );
+
+    if (resSearch.data[0]) {
+      let resProduct = resSearch.data[0];
+      resProduct.product = resSearch.data[0]._id;
+      resProduct.units = 0;
+
+      setFoundProducts([...foundProducts, resProduct]);
+      //TODO implements-> show more than one products
+    } else {
+      Swal.fire("Something went wrong!", "No results", "error");
+    }
   };
 
   /**
@@ -59,6 +70,19 @@ const NewOrder = () => {
     setProductSearch(e.target.value);
   };
 
+  /**
+   *  This function delete products from state
+   */
+  const deleteProductOrder = (id) => {
+    const allProducts = foundProducts.filter(
+      (product) => product.product !== id
+    );
+    setFoundProducts(allProducts);
+  };
+
+  /**
+   *
+   */
   const changeProductUnits = (symbol, index) => {
     const allProducts = [...foundProducts];
     if (symbol === "+") {
@@ -72,47 +96,33 @@ const NewOrder = () => {
     }
     return setFoundProducts(allProducts);
   };
-  // ------ THIS FUNCTION DELETES A PRODUCT FROM ORDERLIST ---------
 
-  const deleteProductOrder = (id) => {
-    console.log("delete")
-    const allProducts = foundProducts.filter(product => product._id !== id)
-    setFoundProducts(allProducts)
-  }
-
-
-  // ------ THIS FUNCTION UPDATES TOTAL ---------
   const updateTotal = () => {
     if (foundProducts.length === 0) {
-      setTotal(0)
-      return
+      setTotal(0);
+      return;
     }
-
     let newTotal = 0;
-
-    foundProducts.map(product => newTotal += (product.units * product.price))
-    setTotal(newTotal)
-
-  }
-
-
+    foundProducts.map((product) => (newTotal += product.units * product.price));
+    setTotal(newTotal);
+  };
 
   return (
     <>
-      <h2>Nuevo Pedido</h2>
+      <h2>New Order</h2>
 
       <div className="card-client">
-        <h3>Datos de Cliente</h3>
+        <h3>Client Info</h3>
         <p>
-          {orderClient.name} {orderClient.lastName}
+          Name: {orderClient.name} {orderClient.lastName}
         </p>
         <p>
-          {orderClient.email} {orderClient.phoneNumber}
+          Contact: {orderClient.email} {orderClient.phoneNumber}
         </p>
       </div>
 
       <FormSearchProduct
-        searchProduct={searchProduct}
+        searchProducts={searchProducts}
         handleChangeProduct={handleChangeProduct}
       />
       <ul className="resume">
@@ -120,22 +130,29 @@ const NewOrder = () => {
           <FoundProducts
             key={product.product}
             product={product}
-            deleteProductOrder={deleteProductOrder}
             changeProductUnits={changeProductUnits}
             index={index}
+            deleteProductOrder={deleteProductOrder}
           />
         ))}
       </ul>
       <div className="field">
-        <label>Total:</label>
-        <p className="total">Total: <span>{total} €</span></p>
+        <p className="total">
+          Total: <span>{total}€</span>
+        </p>
+      </div>
+      <div className="sen">
+        <input type="submit" className="btn btn-blue" value="Agregar Pedido" />
       </div>
       {total > 0 ? (
         <form>
-          <input type="submit" className="btn btn-green btn-block" value="Complete Order" />
+          <input
+            type="submit"
+            className="btn btn-green btn-block"
+            value="Complete Order"
+          />
         </form>
       ) : null}
-
     </>
   );
 };

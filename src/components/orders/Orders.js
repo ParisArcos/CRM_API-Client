@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import clientAxios from "../../config/axios";
 import Order from "./Order";
-
-
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -21,15 +19,15 @@ const Orders = () => {
   return (
     <div>
       <h2>Orders List</h2>
-      <Link className="btn btn-green" to="/orders/new"><i className="fas fa-plus"></i>Add New Order</Link>
+      <Link className="btn btn-green" to="NewOrder">
+        <i className="fas fa-plus"></i>Add New Order
+      </Link>
 
       <ul>
         {orders.map((order) => {
-          return <Order key={order._id} order={order} />
-
+          return <Order key={order._id} order={order} />;
         })}
       </ul>
-
     </div>
   );
 };
