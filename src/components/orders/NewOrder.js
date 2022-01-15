@@ -16,6 +16,8 @@ const NewOrder = () => {
    */
   const [productSearch, setProductSearch] = useState("");
 
+  const [total, setTotal] = useState(0)
+
   const { pathname } = useLocation();
 
   /**
@@ -39,7 +41,8 @@ const NewOrder = () => {
    */
   useEffect(() => {
     APIcall();
-  }, []);
+    updateTotal()
+  }, [foundProducts]);
 
 
   /**
@@ -55,6 +58,44 @@ const NewOrder = () => {
   const handleChangeProduct = (e) => {
     setProductSearch(e.target.value);
   };
+
+  const changeProductUnits = (symbol, index) => {
+    const allProducts = [...foundProducts];
+    if (symbol === "+") {
+      allProducts[index].units++;
+    } else {
+      if (allProducts[index].units !== 0) {
+        allProducts[index].units--;
+      } else {
+        return;
+      }
+    }
+    return setFoundProducts(allProducts);
+  };
+  // ------ THIS FUNCTION DELETES A PRODUCT FROM ORDERLIST ---------
+
+  const deleteProductOrder = (id) => {
+    console.log("delete")
+    const allProducts = foundProducts.filter(product => product._id !== id)
+    setFoundProducts(allProducts)
+  }
+
+
+  // ------ THIS FUNCTION UPDATES TOTAL ---------
+  const updateTotal = () => {
+    if (foundProducts.length === 0) {
+      setTotal(0)
+      return
+    }
+
+    let newTotal = 0;
+
+    foundProducts.map(product => newTotal += (product.units * product.price))
+    setTotal(newTotal)
+
+  }
+
+
 
   return (
     <>
@@ -74,49 +115,27 @@ const NewOrder = () => {
         searchProduct={searchProduct}
         handleChangeProduct={handleChangeProduct}
       />
-      <form>
-
-
-        <ul className="summary">
-          <li>
-            <div className="text-product">
-              <p className="name">Macbook Pro</p>
-              <p className="description">Ordenata to pasao de rosca</p>
-              <p className="price">$250</p>
-            </div>
-            <div className="actions">
-              <div className="container-units">
-                <i className="fas fa-minus"></i>
-                <input type="text" name="cantidad" />
-                <i className="fas fa-plus"></i>
-              </div>
-
-            </div>
-          </li>
-
-
-        </ul>
-        <div className="field">
-          <label>Total:</label>
-          <input
-            type="number"
-            name="price"
-            placeholder="price"
-            readOnly="readonly"
+      <ul className="resume">
+        {foundProducts.map((product, index) => (
+          <FoundProducts
+            key={product.product}
+            product={product}
+            deleteProductOrder={deleteProductOrder}
+            changeProductUnits={changeProductUnits}
+            index={index}
           />
-        </div>
-        <div className="sen">
-          <input
-            type="submit"
-            className="btn btn-blue"
-            value="Agregar Pedido"
-          />
-          <button type="button" className="btn btn-red">
-            <i className="fas fa-minus-circle"></i>
-            Delete product
-          </button>
-        </div>
-      </form>
+        ))}
+      </ul>
+      <div className="field">
+        <label>Total:</label>
+        <p className="total">Total: <span>{total} €</span></p>
+      </div>
+      {total > 0 ? (
+        <form>
+          <input type="submit" className="btn btn-green btn-block" value="Complete Order" />
+        </form>
+      ) : null}
+
     </>
   );
 };
