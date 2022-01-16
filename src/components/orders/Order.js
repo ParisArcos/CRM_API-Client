@@ -1,9 +1,32 @@
 import React from "react";
+import clientAxios from "../../config/axios";
+import Swal from "sweetalert2"
 
 const Order = (props) => {
 
   const { client, order, total, _id } = props.order
   console.log(props.order)
+
+
+  const deleteOrder = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        clientAxios.delete(`/orders/${id}`).then((res) => {
+          res.status === 200
+            ? Swal.fire("Deleted!", "Your file has been deleted.", "success")
+            : Swal.fire("Something went wrong!", res.status, "error");
+        });
+      }
+    });
+  };
   return (
     <>
       <li className="order">
@@ -39,12 +62,8 @@ const Order = (props) => {
           <p className="total">Total: {total} €</p>
         </div>
         <div className="actions">
-          <a href="#" className="btn btn-blue">
-            <i className="fas fa-edit"></i>
-            Edit order
-          </a>
 
-          <button type="button" className="btn btn-red btn-delete">
+          <button onClick={() => deleteOrder(_id)} type="button" className="btn btn-red btn-delete">
             <i className="fas fa-times"></i>
             Delete order
           </button>
