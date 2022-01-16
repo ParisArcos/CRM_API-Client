@@ -1,11 +1,11 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import clientAxios from "../../config/axios";
 import FormSearchProduct from "./FormSearchProduct";
 import FoundProducts from "./FoundProducts";
 import Swal from "sweetalert2";
 
-const NewOrder = () => {
+const NewOrder = (props) => {
   /**
    *  This function sets initial state
    *  state , setState
@@ -17,6 +17,7 @@ const NewOrder = () => {
 
 
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   /**
    *  This function takes the id from the  URL
@@ -107,6 +108,28 @@ const NewOrder = () => {
     setTotal(newTotal);
   };
 
+
+  const addOrder = async (e) => {
+    e.preventDefault()
+
+    const order = {
+      "client": getIdFromURL(),
+      "order": foundProducts,
+      "total": total
+    }
+
+    const res = await clientAxios.post(`/orders`, order)
+
+    if (res.status === 200) {
+      Swal.fire("New product Added!", res.data.message, "success");
+    } else {
+      Swal.fire("Something went wrong!", "No results", "error");
+
+    }
+
+    navigate("/orders")
+  }
+
   return (
     <>
       <h2>New Order</h2>
@@ -141,11 +164,9 @@ const NewOrder = () => {
           Total: <span>{total}€</span>
         </p>
       </div>
-      <div className="sen">
-        <input type="submit" className="btn btn-blue" value="Agregar Pedido" />
-      </div>
+
       {total > 0 ? (
-        <form>
+        <form onSubmit={addOrder}>
           <input
             type="submit"
             className="btn btn-green btn-block"

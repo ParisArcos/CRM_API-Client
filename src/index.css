@@ -272,10 +272,11 @@ p {
 
 .img-product {
   width: 100px;
-  height: auto;
+  height: 100px;
 }
 
 @media (min-width: 768px) {
+
   .client,
   .product,
   .order {
@@ -316,6 +317,7 @@ p {
 }
 
 @media (min-width: 768px) {
+
   .client .actions a:last-of-type,
   .product .actions a:last-of-type,
   .order .actions a:last-of-type {

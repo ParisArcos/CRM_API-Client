@@ -1,36 +1,42 @@
 import React from "react";
 
-const Order = (order) => {
+const Order = (props) => {
 
-  const { name, price, units, total } = order;
+  const { client, order, total, _id } = props.order
+  console.log(props.order)
   return (
     <>
       <li className="order">
         <div className="info-order">
-          <p className="id">ID: 0192019201291201</p>
-          <p className="name">Cliente: Juan Pablo De la torre</p>
+          <p className="id">{_id}</p>
+          <p className="name">{client.name} {client.lastName}</p>
 
           <div className="products-order">
             <p className="products">Artículos order: </p>
             <ul>
-              <li>
-                <p>{name}</p>
-                <p>Precio: ${price}</p>
-                <p>Cantidad: 4</p>
-              </li>
-              <li>
-                <p>Macbook Pro</p>
-                <p>Precio: $3000</p>
-                <p>Cantidad: 4</p>
-              </li>
-              <li>
-                <p>Macbook Pro</p>
-                <p>Precio: $3000</p>
-                <p>Cantidad: 4</p>
-              </li>
+
+              {order.map((o) => (
+                <li key={o.product._id} className="d-flex align-items-center ">
+                  {o.product.image ? (
+                    <div >
+                      <img className="img-product me-4" src={`http://localhost:4000/${o.product.image}`}></img>
+
+                    </div>
+                  ) : (null)}
+                  <div>
+                    <p>{o.product.name}</p>
+                    <p>Precio: {o.product.price} €</p>
+                    <p>Cantidad: {o.units}</p>
+                  </div>
+
+
+                </li>
+              ))}
+
+
             </ul>
           </div>
-          <p className="total">Total: $3,500 </p>
+          <p className="total">Total: {total} €</p>
         </div>
         <div className="actions">
           <a href="#" className="btn btn-blue">
