@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import clientAxios from "../../config/axios";
+import { CRMContext } from "../../context/CRMContext";
 
 const EditClient = () => {
+  const [auth, setAuth] = useContext(CRMContext);
+
+  const navigate = useNavigate();
+
+  !auth.auth ? navigate("/login") : console.log();
   /**
    *  This function sets initial state
    *  editClient = state  setEditClient = setState
@@ -24,7 +30,6 @@ const EditClient = () => {
   }, []);
 
   const { pathname } = useLocation();
-  const navigate = useNavigate();
 
   /**
    *  This function takes the id from the  URL

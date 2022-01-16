@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import clientAxios from "../../config/axios";
+import { CRMContext } from "../../context/CRMContext";
 
 const EditProduct = () => {
+  const [auth, setAuth] = useContext(CRMContext);
+
+  const navigate = useNavigate();
+
+  !auth.auth ? navigate("/login") : console.log();
   /**
    *  This function sets initial state
    *  editProduct = state  setEditProduct = setState
@@ -32,7 +38,6 @@ const EditProduct = () => {
   }, []);
 
   const { pathname } = useLocation();
-  const navigate = useNavigate();
 
   /**
    *  This function takes the id from the  URL
@@ -42,14 +47,12 @@ const EditProduct = () => {
     return pathSplit[pathSplit.length - 1];
   };
 
-
-
   /**
    *  This function takes files
    */
   const getFile = (e) => {
     setEditFile(e.target.files[0]);
-    console.log(e.target.files[0])
+    console.log(e.target.files[0]);
   };
 
   /**
@@ -70,8 +73,7 @@ const EditProduct = () => {
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(editFile)
-
+    console.log(editFile);
 
     const editFormData = new FormData();
     editFormData.append("name", editProduct.name);
@@ -80,12 +82,10 @@ const EditProduct = () => {
     editFormData.append("image", editFile || editProduct.image);
 
     try {
-
       await clientAxios
         .put(`/products/${getIdFromURL()}`, editFormData, {
           // method: "PUT",
-          headers:
-            { 'content-type': 'application/x-www-form-urlencoded' }
+          headers: { "content-type": "application/x-www-form-urlencoded" },
         })
         .then((res) => {
           if (res.status === 200) {

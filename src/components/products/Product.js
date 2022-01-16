@@ -5,27 +5,27 @@ import Swal from "sweetalert2";
 
 import clientAxios from "../../config/axios";
 
-const deleteProduct = (id) => {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      clientAxios.delete(`/products/${id}`).then((res) => {
-        res.status === 200
-          ? Swal.fire("Deleted!", "Your file has been deleted.", "success")
-          : Swal.fire("Something went wrong!", res.status, "error");
-      });
-    }
-  });
-};
-
 const Product = ({ product }) => {
+  const deleteProduct = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        clientAxios.delete(`/products/${id}`).then((res) => {
+          res.status === 200
+            ? Swal.fire("Deleted!", "Your file has been deleted.", "success")
+            : Swal.fire("Something went wrong!", res.status, "error");
+        });
+      }
+    });
+  };
+
   const { _id, name, description, price, image } = product;
   return (
     <div>

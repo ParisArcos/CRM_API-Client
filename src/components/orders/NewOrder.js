@@ -1,11 +1,17 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import clientAxios from "../../config/axios";
 import FormSearchProduct from "./FormSearchProduct";
 import FoundProducts from "./FoundProducts";
 import Swal from "sweetalert2";
+import { CRMContext } from "../../context/CRMContext";
 
 const NewOrder = () => {
+  const [auth, setAuth] = useContext(CRMContext);
+
+  const navigate = useNavigate();
+
+  !auth.auth ? navigate("/login") : console.log();
   /**
    *  This function sets initial state
    *  state , setState
@@ -106,6 +112,26 @@ const NewOrder = () => {
     setTotal(newTotal);
   };
 
+  const addOrder = async (e) => {
+    e.preventDefault();
+    const order = {
+      client: getIdFromURL(),
+      order: foundProducts,
+      total: total,
+    };
+    try {
+      await clientAxios.post("/orders", order).then((res) => {
+        if (res.status === 200) {
+          Swal.fire("New order Added!", res.data.message, "success");
+          console.log(res);
+        }
+        navigate("/orders");
+      });
+    } catch (error) {
+      Swal.fire("Something went wrong!", "Error in Database", "error");
+    }
+  };
+
   return (
     <>
       <h2>New Order</h2>
@@ -144,7 +170,7 @@ const NewOrder = () => {
         <input type="submit" className="btn btn-blue" value="Agregar Pedido" />
       </div>
       {total > 0 ? (
-        <form>
+        <form onSubmit={addOrder}>
           <input
             type="submit"
             className="btn btn-green btn-block"
