@@ -1,6 +1,6 @@
 import React from "react";
 import Swal from "sweetalert2";
-import clientAxios from "../../config/axios";
+import { clientAxios, authHeader } from "../../config/axios";
 
 const Order = (props) => {
   const deleteOrder = (id) => {
@@ -14,11 +14,13 @@ const Order = (props) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        clientAxios.delete(`/orders/${id}`).then((res) => {
-          res.status === 200
-            ? Swal.fire("Deleted!", "Your order has been deleted.", "success")
-            : Swal.fire("Something went wrong!", res.status, "error");
-        });
+        clientAxios
+          .delete(`/orders/${id}`, authHeader(localStorage.getItem("token")))
+          .then((res) => {
+            res.status === 200
+              ? Swal.fire("Deleted!", "Your order has been deleted.", "success")
+              : Swal.fire("Something went wrong!", res.status, "error");
+          });
       }
     });
   };

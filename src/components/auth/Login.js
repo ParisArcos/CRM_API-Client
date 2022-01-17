@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import clientAxios from "../../config/axios";
+import { clientAxios, authHeader } from "../../config/axios";
 import Swal from "sweetalert2";
 import { CRMContext } from "../../context/CRMContext";
 

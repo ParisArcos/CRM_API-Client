@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import clientAxios from "../../config/axios";
+import { clientAxios, authHeader } from "../../config/axios";
 import { CRMContext } from "../../context/CRMContext";
 
 const EditProduct = () => {
@@ -27,7 +27,10 @@ const EditProduct = () => {
   const [editFile, setEditFile] = useState("");
 
   const APIcall = async () => {
-    const productReq = await clientAxios.get(`/products/${getIdFromURL()}`);
+    const productReq = await clientAxios.get(
+      `/products/${getIdFromURL()}`,
+      authHeader(localStorage.getItem("token"))
+    );
     setEditProduct(productReq.data);
   };
   /**
@@ -83,10 +86,11 @@ const EditProduct = () => {
 
     try {
       await clientAxios
-        .put(`/products/${getIdFromURL()}`, editFormData, {
-          // method: "PUT",
-          headers: { "content-type": "application/x-www-form-urlencoded" },
-        })
+        .put(
+          `/products/${getIdFromURL()}`,
+          editFormData,
+          authHeader(localStorage.getItem("token"))
+        )
         .then((res) => {
           if (res.status === 200) {
             Swal.fire("Product edited!", res.data.message, "success");

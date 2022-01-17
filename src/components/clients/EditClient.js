@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import clientAxios from "../../config/axios";
+import { clientAxios, authHeader } from "../../config/axios";
 import { CRMContext } from "../../context/CRMContext";
 
 const EditClient = () => {
@@ -43,7 +43,10 @@ const EditClient = () => {
    *  This function gets client from the api
    */
   const APIcall = async () => {
-    const clientReq = await clientAxios.get(`/clients/${getIdFromURL()}`);
+    const clientReq = await clientAxios.get(
+      `/clients/${getIdFromURL()}`,
+      authHeader(localStorage.getItem("token"))
+    );
     setEditClient(clientReq.data);
   };
 
@@ -64,14 +67,20 @@ const EditClient = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    clientAxios.put(`/clients/${getIdFromURL()}`, editClient).then((res) => {
-      if (res.data.code === 11000) {
-        Swal.fire("Something went wrong!", "Error in Database", "error");
-      } else {
-        Swal.fire("Client edited", res.data.message, "success");
-      }
-      navigate("/");
-    });
+    clientAxios
+      .put(
+        `/clients/${getIdFromURL()}`,
+        editClient,
+        authHeader(localStorage.getItem("token"))
+      )
+      .then((res) => {
+        if (res.data.code === 11000) {
+          Swal.fire("Something went wrong!", "Error in Database", "error");
+        } else {
+          Swal.fire("Client edited", res.data.message, "success");
+        }
+        navigate("/");
+      });
   };
 
   /**

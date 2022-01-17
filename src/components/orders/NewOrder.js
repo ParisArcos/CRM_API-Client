@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import clientAxios from "../../config/axios";
+import { clientAxios, authHeader } from "../../config/axios";
 import FormSearchProduct from "./FormSearchProduct";
 import FoundProducts from "./FoundProducts";
 import Swal from "sweetalert2";
@@ -35,7 +35,10 @@ const NewOrder = () => {
    *  This function gets client from the api
    */
   const APIcall = async () => {
-    const clientReq = await clientAxios.get(`/clients/${getIdFromURL()}`);
+    const clientReq = await clientAxios.get(
+      `/clients/${getIdFromURL()}`,
+      authHeader(localStorage.getItem("token"))
+    );
     setOrderClient(clientReq.data);
   };
 
@@ -120,13 +123,15 @@ const NewOrder = () => {
       total: total,
     };
     try {
-      await clientAxios.post("/orders", order).then((res) => {
-        if (res.status === 200) {
-          Swal.fire("New order Added!", res.data.message, "success");
-          console.log(res);
-        }
-        navigate("/orders");
-      });
+      await clientAxios
+        .post("/orders", order, authHeader(localStorage.getItem("token")))
+        .then((res) => {
+          if (res.status === 200) {
+            Swal.fire("New order Added!", res.data.message, "success");
+            console.log(res);
+          }
+          navigate("/orders");
+        });
     } catch (error) {
       Swal.fire("Something went wrong!", "Error in Database", "error");
     }
@@ -166,9 +171,7 @@ const NewOrder = () => {
           Total: <span>{total}€</span>
         </p>
       </div>
-      <div className="sen">
-        <input type="submit" className="btn btn-blue" value="Agregar Pedido" />
-      </div>
+
       {total > 0 ? (
         <form onSubmit={addOrder}>
           <input

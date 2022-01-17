@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import Swal from "sweetalert2";
 
-import clientAxios from "../../config/axios";
+import { clientAxios, authHeader } from "../../config/axios";
 
 const Product = ({ product }) => {
   const deleteProduct = (id) => {
@@ -17,11 +17,13 @@ const Product = ({ product }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        clientAxios.delete(`/products/${id}`).then((res) => {
-          res.status === 200
-            ? Swal.fire("Deleted!", "Your file has been deleted.", "success")
-            : Swal.fire("Something went wrong!", res.status, "error");
-        });
+        clientAxios
+          .delete(`/products/${id}`, authHeader(localStorage.getItem("token")))
+          .then((res) => {
+            res.status === 200
+              ? Swal.fire("Deleted!", "Your file has been deleted.", "success")
+              : Swal.fire("Something went wrong!", res.status, "error");
+          });
       }
     });
   };

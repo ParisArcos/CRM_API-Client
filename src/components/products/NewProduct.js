@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import clientAxios from "../../config/axios";
+import { clientAxios, authHeader } from "../../config/axios";
 import { CRMContext } from "../../context/CRMContext";
 
 const NewProduct = () => {
@@ -54,11 +54,7 @@ const NewProduct = () => {
     formData.append("image", newFile);
     try {
       await clientAxios
-        .post("/products", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .post("/products", formData, authHeader(localStorage.getItem("token")))
         .then((res) => {
           if (res.status === 200) {
             Swal.fire("New product Added!", res.data.message, "success");

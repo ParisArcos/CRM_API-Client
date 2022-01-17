@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import clientAxios from "../../config/axios";
+import { clientAxios, authHeader } from "../../config/axios";
 import { CRMContext } from "../../context/CRMContext";
 
 const NewClient = ({}) => {
@@ -39,14 +39,16 @@ const NewClient = ({}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    clientAxios.post("/clients", newClient).then((res) => {
-      if (res.data.code === 11000) {
-        Swal.fire("Something went wrong!", "Error in Database", "error");
-      } else {
-        Swal.fire("New client Added!", res.data.message, "success");
-      }
-      navigate("/");
-    });
+    clientAxios
+      .post("/clients", newClient, authHeader(localStorage.getItem("token")))
+      .then((res) => {
+        if (res.data.code === 11000) {
+          Swal.fire("Something went wrong!", "Error in Database", "error");
+        } else {
+          Swal.fire("New client Added!", res.data.message, "success");
+        }
+        navigate("/");
+      });
   };
 
   /**

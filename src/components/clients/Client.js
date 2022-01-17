@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import clientAxios from "../../config/axios";
+import { clientAxios, authHeader } from "../../config/axios";
 
 const Client = ({ client }) => {
   const { _id, name, lastName, email, company, phoneNumber } = client;
@@ -19,9 +19,11 @@ const Client = ({ client }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        clientAxios.delete(`/clients/${id}`).then((res) => {
-          Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        });
+        clientAxios
+          .delete(`/clients/${id}`, authHeader(localStorage.getItem("token")))
+          .then((res) => {
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          });
       }
     });
   };

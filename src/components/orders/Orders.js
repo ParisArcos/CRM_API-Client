@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import clientAxios from "../../config/axios";
+import { clientAxios, authHeader } from "../../config/axios";
 import Order from "./Order";
 import { CRMContext } from "../../context/CRMContext";
 
@@ -12,7 +12,10 @@ const Orders = () => {
 
   const APIcall = async () => {
     try {
-      const req = await clientAxios.get("/orders");
+      const req = await clientAxios.get(
+        "/orders",
+        authHeader(localStorage.getItem("token"))
+      );
       //
 
       setOrders(req.data);
@@ -34,9 +37,6 @@ const Orders = () => {
   return (
     <div>
       <h2>Orders List</h2>
-      <Link className="btn btn-green" to="NewOrder">
-        <i className="fas fa-plus"></i>Add New Order
-      </Link>
 
       <ul>
         {orders.map((order) => {

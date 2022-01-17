@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import clientAxios from "../../config/axios";
+import { clientAxios, authHeader } from "../../config/axios";
 import Client from "./Client";
 import { CRMContext } from "../../context/CRMContext";
 
@@ -12,7 +12,10 @@ const Clients = () => {
 
   const APIcall = async () => {
     try {
-      const req = await clientAxios.get("/clients");
+      const req = await clientAxios.get(
+        "/clients",
+        authHeader(localStorage.getItem("token"))
+      );
       // console.log(req.data)
 
       setClients(req.data);
