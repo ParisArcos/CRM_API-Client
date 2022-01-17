@@ -47,7 +47,7 @@ const Login = () => {
               <input
                 type="text"
                 name="email"
-                plaseholder="Insert email"
+                placeholder="Insert email"
                 required
                 onChange={handleChange}
               />
@@ -57,7 +57,7 @@ const Login = () => {
               <input
                 type="password"
                 name="password"
-                plaseholder="Insert password"
+                placeholder="Insert password"
                 required
                 onChange={handleChange}
               />
