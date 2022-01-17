@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 
 /**
  * Layouts
@@ -32,7 +32,7 @@ import NewOrder from "./components/orders/NewOrder";
 
 // -------------- IMPORT THE CONTEXT --------------
 
-import { CRMContext, CRMprovider } from "../src/context/userContext"
+import { CRMContext, CRMprovider } from "../src/context/CRMContext"
 import Login from "./components/auth/Login";
 
 function App() {
@@ -42,6 +42,8 @@ function App() {
     <Router>
       <>
         <CRMprovider value={[auth, setAuth]}>
+
+
           <Header />
           <div className="container d-flex">
             <Nav className="list-clients" />

@@ -19,12 +19,16 @@ const Login = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await clientAxios.post("/users/login", credentials).then((res) => {
+    await clientAxios.post("/users/login", credentials, { headers: "" }).then((res) => {
+      console.log(res);
+
       if (res.data.status === 401) {
         Swal.fire("Something went wrong!", res.data.message, "error");
       } else {
         Swal.fire("Welcome!", res.data.message, "success");
         const { token } = res.data;
+        console.log(token);
+
         localStorage.setItem("token", token);
         setAuth({
           token: token,
@@ -47,7 +51,7 @@ const Login = () => {
               <input
                 type="text"
                 name="email"
-                plaseholder="Insert email"
+                placeholder="Insert email"
                 required
                 onChange={handleChange}
               />
@@ -57,7 +61,7 @@ const Login = () => {
               <input
                 type="password"
                 name="password"
-                plaseholder="Insert password"
+                placeholder="Insert password"
                 required
                 onChange={handleChange}
               />

@@ -7,8 +7,8 @@ import { CRMContext } from "../../context/CRMContext";
 const Clients = () => {
   const [clients, setClients] = useState([]);
   const [auth, setAuth] = useContext(CRMContext);
-
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  !auth.auth ? navigate("/login") : console.log()
 
   const APIcall = async () => {
     try {
@@ -29,7 +29,6 @@ const Clients = () => {
     }
   }, []);
 
-  !auth.auth ? navigate("/login") : console.log();
 
   return (
     <div>

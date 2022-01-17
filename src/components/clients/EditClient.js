@@ -6,10 +6,8 @@ import { CRMContext } from "../../context/CRMContext";
 
 const EditClient = () => {
   const [auth, setAuth] = useContext(CRMContext);
-
-  const navigate = useNavigate();
-
-  !auth.auth ? navigate("/login") : console.log();
+  const navigate = useNavigate()
+  !auth.auth ? navigate("/login") : console.log()
   /**
    *  This function sets initial state
    *  editClient = state  setEditClient = setState
