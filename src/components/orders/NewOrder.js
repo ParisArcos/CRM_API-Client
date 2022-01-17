@@ -54,7 +54,7 @@ const NewOrder = () => {
   const searchProducts = async (e) => {
     e.preventDefault();
     const resSearch = await clientAxios.post(
-      `/products/search/${productSearch}, authHeader(localStorage.getItem("token"))`
+      `/products/search/${productSearch}`
     );
 
     if (resSearch.data[0]) {

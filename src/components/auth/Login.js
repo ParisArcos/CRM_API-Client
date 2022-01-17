@@ -20,14 +20,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await clientAxios.post("/users/login", credentials, { headers: "" }).then((res) => {
-      console.log(res);
 
       if (res.data.status === 401) {
         Swal.fire("Something went wrong!", res.data.message, "error");
       } else {
         Swal.fire("Welcome!", res.data.message, "success");
         const { token } = res.data;
-        console.log(token);
 
         localStorage.setItem("token", token);
         setAuth({
