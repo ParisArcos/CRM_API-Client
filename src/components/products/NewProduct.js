@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import clientAxios from "../../config/axios";
+import { CRMContext } from "../../context/CRMContext";
 
 const NewProduct = () => {
+  const [auth, setAuth] = useContext(CRMContext);
+
+  const navigate = useNavigate();
+
+  !auth.auth ? navigate("/login") : console.log();
   /**
    * newProduct = state | setNewProduct = setState
    */
@@ -39,7 +45,6 @@ const NewProduct = () => {
   /**
    *  This function handle form submit
    */
-  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -57,7 +62,7 @@ const NewProduct = () => {
         .then((res) => {
           if (res.status === 200) {
             Swal.fire("New product Added!", res.data.message, "success");
-            console.log(res)
+            console.log(res);
           }
           navigate("/products");
         });

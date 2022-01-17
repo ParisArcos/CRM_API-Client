@@ -1,24 +1,44 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 <<<<<<< Updated upstream
 import { Link } from "react-router-dom";
 =======
 >>>>>>> Stashed changes
+=======
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+>>>>>>> Paris
 import clientAxios from "../../config/axios";
 import Order from "./Order";
+import { CRMContext } from "../../context/CRMContext";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [auth, setAuth] = useContext(CRMContext);
+
+  const navigate = useNavigate();
 
   const APIcall = async () => {
-    const ordersReq = await clientAxios.get("/orders");
-    // console.log(clientsReq.data)
+    try {
+      const req = await clientAxios.get("/orders");
+      //
 
-    setOrders(ordersReq.data);
+      setOrders(req.data);
+    } catch (error) {
+      error.response.status === 500 ? navigate("/login") : console.log(error);
+    }
   };
 
   useEffect(() => {
-    APIcall();
+    if (auth.token !== "") {
+      APIcall();
+    } else {
+      navigate("/login");
+    }
   }, []);
+
+  !auth.auth ? navigate("/login") : console.log();
+
   return (
     <div>
       <h2>Orders List</h2>

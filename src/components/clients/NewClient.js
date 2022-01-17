@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import clientAxios from "../../config/axios";
+import { CRMContext } from "../../context/CRMContext";
 
-const NewClient = ({ }) => {
+const NewClient = ({}) => {
+  const [auth, setAuth] = useContext(CRMContext);
+
+  const navigate = useNavigate();
+
+  !auth.auth ? navigate("/login") : console.log();
   /**
    *  This function sets initial state
    *  newClient = state  setNewClient = setState
@@ -30,7 +36,6 @@ const NewClient = ({ }) => {
   /**
    *  This function handle form submit
    */
-  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
 

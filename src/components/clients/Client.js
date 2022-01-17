@@ -5,7 +5,6 @@ import clientAxios from "../../config/axios";
 
 const Client = ({ client }) => {
   const { _id, name, lastName, email, company, phoneNumber } = client;
-
   /**
    * This function sends request to API for delete clients
    */
