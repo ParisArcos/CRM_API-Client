@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import clientAxios from "../../config/axios";
+import { clientAxios, authHeader } from "../../config/axios.js";
 import Product from "./Product";
 import { CRMContext } from "../../context/CRMContext";
 
@@ -14,7 +14,7 @@ const Products = () => {
 
   const APIcall = async () => {
     try {
-      const req = await clientAxios.get("/products");
+      const req = await clientAxios.get("/products", authHeader(localStorage.getItem("token")));
       // console.log(req.data)
 
       setProducts(req.data);

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import clientAxios from "../../config/axios";
+import { clientAxios } from "../../config/axios";
 import { CRMContext } from "../../context/CRMContext";
 
 const NewProduct = () => {

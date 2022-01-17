@@ -1,6 +1,6 @@
 import React from "react";
 import Swal from "sweetalert2";
-import clientAxios from "../../config/axios";
+import { clientAxios } from "../../config/axios";
 
 const Order = (props) => {
   const deleteOrder = (id) => {

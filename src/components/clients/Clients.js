@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import clientAxios from "../../config/axios";
 import Client from "./Client";
+import { clientAxios, authHeader } from "../../config/axios";
+
 import { CRMContext } from "../../context/CRMContext";
+
 
 const Clients = () => {
   const [clients, setClients] = useState([]);
@@ -11,8 +13,9 @@ const Clients = () => {
   !auth.auth ? navigate("/login") : console.log()
 
   const APIcall = async () => {
+
     try {
-      const req = await clientAxios.get("/clients");
+      const req = await clientAxios.get("/clients", authHeader(localStorage.getItem("token")));
       // console.log(req.data)
 
       setClients(req.data);
@@ -22,10 +25,11 @@ const Clients = () => {
   };
 
   useEffect(() => {
-    if (auth.token !== "") {
-      APIcall();
+    if (!auth.token) {
+      navigate("/");
     } else {
-      navigate("/login");
+      APIcall()
+
     }
   }, []);
 

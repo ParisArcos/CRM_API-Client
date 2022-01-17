@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import clientAxios from "../../config/axios";
+import { clientAxios } from "../../config/axios";
 import { CRMContext } from "../../context/CRMContext";
 
 const EditClient = () => {

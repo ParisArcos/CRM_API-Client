@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import clientAxios from "../../config/axios";
+import { clientAxios, authHeader } from "../../config/axios";
 import FormSearchProduct from "./FormSearchProduct";
 import FoundProducts from "./FoundProducts";
 import Swal from "sweetalert2";
@@ -54,7 +54,7 @@ const NewOrder = () => {
   const searchProducts = async (e) => {
     e.preventDefault();
     const resSearch = await clientAxios.post(
-      `/products/search/${productSearch}`
+      `/products/search/${productSearch}, authHeader(localStorage.getItem("token"))`
     );
 
     if (resSearch.data[0]) {
