@@ -15,7 +15,7 @@ const FoundProducts = (props) => {
       <div className="text-product">
         <p className="name">{product.name}</p>
         <p className="description">{product.description}</p>
-        <p className="price">{product.price} SMC</p>
+        <p className="price">{product.price} €</p>
       </div>
       <div className="actions">
         <div className="d-flex justify-content-around container">
