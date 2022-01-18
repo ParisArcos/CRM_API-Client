@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import { clientAxios, authHeader } from "../../config/axios";
 
 const Order = (props) => {
+  const { APIcall } = props;
   const deleteOrder = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -21,7 +22,7 @@ const Order = (props) => {
               ? Swal.fire("Deleted!", "Your order has been deleted.", "success")
               : Swal.fire("Something went wrong!", res.status, "error");
           });
-        props.APIcall();
+        APIcall();
       }
     });
   };
