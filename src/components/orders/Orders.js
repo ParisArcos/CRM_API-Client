@@ -40,7 +40,7 @@ const Orders = () => {
 
       <ul>
         {orders.map((order) => {
-          return <Order key={order._id} order={order} />;
+          return <Order key={order._id} order={order} APIcall={APIcall} />;
         })}
       </ul>
     </div>

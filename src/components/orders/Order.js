@@ -21,6 +21,7 @@ const Order = (props) => {
               ? Swal.fire("Deleted!", "Your order has been deleted.", "success")
               : Swal.fire("Something went wrong!", res.status, "error");
           });
+        props.APIcall();
       }
     });
   };
@@ -40,24 +41,28 @@ const Order = (props) => {
           <div className="products-order">
             <p className="products">Order: </p>
             <ul>
-              {order.map((o) => (
-                <li key={o.product._id} className="d-flex align-items-center">
-                  <div>
-                    {o.product.image ? (
-                      <img
-                        src={`http://localhost:4000/${o.product.image}`}
-                        className="img-product me-4"
-                        alt="product"
-                      />
-                    ) : null}
-                  </div>
-                  <div className="container">
-                    <p>{o.product.name}</p>
-                    <p>Price: {o.product.price} SMC</p>
-                    <p>Units: {o.units}</p>
-                  </div>
-                </li>
-              ))}
+              {order.map((o) =>
+                o.product ? (
+                  <li key={o.product._id} className="d-flex align-items-center">
+                    <div>
+                      {o.product.image ? (
+                        <img
+                          src={`http://localhost:4000/${o.product.image}`}
+                          className="img-product me-4"
+                          alt="product"
+                        />
+                      ) : null}
+                    </div>
+                    <div className="container">
+                      <p>{o.product.name}</p>
+                      <p>Price: {o.product.price} SMC</p>
+                      <p>Units: {o.units}</p>
+                    </div>
+                  </li>
+                ) : (
+                  <h3 key={_id}>Product not found!!</h3>
+                )
+              )}
             </ul>
           </div>
           <p className="total">Total: {total} SMC </p>

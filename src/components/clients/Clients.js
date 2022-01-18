@@ -44,7 +44,7 @@ const Clients = () => {
 
       <ul className="list-clients">
         {clients.map((client) => {
-          return <Client key={client._id} client={client} />;
+          return <Client key={client._id} client={client} APIcall={APIcall} />;
         })}
       </ul>
     </div>

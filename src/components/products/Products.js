@@ -44,7 +44,9 @@ const Products = () => {
 
       <ul className="listado-products">
         {products.map((product) => {
-          return <Product key={product._id} product={product} />;
+          return (
+            <Product key={product._id} product={product} APIcall={APIcall} />
+          );
         })}
       </ul>
     </div>

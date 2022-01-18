@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 
 import { clientAxios, authHeader } from "../../config/axios";
 
-const Product = ({ product }) => {
+const Product = ({ product, APIcall }) => {
   const deleteProduct = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -24,6 +24,7 @@ const Product = ({ product }) => {
               ? Swal.fire("Deleted!", "Your file has been deleted.", "success")
               : Swal.fire("Something went wrong!", res.status, "error");
           });
+        APIcall();
       }
     });
   };

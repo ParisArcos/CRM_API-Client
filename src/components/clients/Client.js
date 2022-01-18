@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { clientAxios, authHeader } from "../../config/axios";
 
-const Client = ({ client }) => {
+const Client = ({ client, APIcall }) => {
   const { _id, name, lastName, email, company, phoneNumber } = client;
   /**
    * This function sends request to API for delete clients
@@ -25,6 +25,7 @@ const Client = ({ client }) => {
             Swal.fire("Deleted!", "Your file has been deleted.", "success");
           });
       }
+      APIcall();
     });
   };
 
