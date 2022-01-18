@@ -6,6 +6,7 @@ import { CRMContext } from "../../context/CRMContext";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [displayProducts, setDisplayProducts] = useState([])
   const [auth, setAuth] = useContext(CRMContext);
 
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const Products = () => {
   };
 
   useEffect(() => {
+
     if (auth.token !== "") {
       APIcall();
     } else {
@@ -41,7 +43,7 @@ const Products = () => {
 
       <ul className="listado-products">
         {products.map((product) => {
-          return <Product key={product._id} product={product} />;
+          return <Product key={product._id} product={product} APIcall={APIcall} />;
         })}
       </ul>
     </div>
